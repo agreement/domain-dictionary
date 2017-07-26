@@ -14,3 +14,13 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
+Artisan::command('domain:check', function () {
+
+    $domains = \App\Domain::orderBy('last_checked_at')->take(env('DOMAINR_BATCH_SIZE', 50))->get();
+
+    foreach($domains as $domain)
+    {
+        dispatch(new \App\Jobs\CheckDomainAvailability($domain));
+    }
+
+})->describe('Check domains');
