@@ -15,3 +15,5 @@
 
 Route::get('/', 'WordsController@index');
 Route::get('words/{letter?}', 'WordsController@index');
+
+Route::get('register/{domain}', 'RegisterController@create');

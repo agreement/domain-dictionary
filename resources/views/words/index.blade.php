@@ -53,6 +53,12 @@
                                         <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
                                         <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
                                         <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                        <td>
+                                            @if($domain->available)
+                                            <a href="/register/{{ $domain->id }}" target="_blank" class="btn btn-default btn-sm">Register</a>
+                                            @endif
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -80,6 +86,7 @@
                                     <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
                                     <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
                                     <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                    <td><a href="/register/{{ $domain->id }}" target="_blank" class="btn btn-default btn-sm">Register</a></td>
                                 </tr>
                             </tbody>
                         </table>
