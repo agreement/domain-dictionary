@@ -39,7 +39,8 @@ class CheckDomainAvailability implements ShouldQueue
 
         $response = \Domainr::status($this->domain->domain);
 
-        $this->domain->availability = $response[0]->summary;
+        $this->domain->available = config('domainr.statuses.' . $response[0]->summary . '.available');
+        $this->domain->status = $response[0]->summary;
         $this->domain->last_checked_at = new Carbon;
 
         $this->domain->save();

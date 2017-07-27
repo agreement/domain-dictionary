@@ -16,7 +16,7 @@ use Illuminate\Foundation\Inspiring;
 
 Artisan::command('domain:check', function () {
 
-    $domains = \App\Domain::whereNull('availability')->take(env('DOMAINR_BATCH_SIZE', 50))->get();
+    $domains = \App\Domain::whereNull('status')->take(env('DOMAINR_BATCH_SIZE', 50))->get();
 
     foreach($domains as $domain)
     {
