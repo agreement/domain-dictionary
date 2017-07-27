@@ -46,15 +46,44 @@
                                 <p><em class="text-muted">{{ $definition->type }}</em> {{ $definition->definition }}</p>
                             @endforeach
 
-                            @foreach($word->domains as $domain)
-                                <p><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></p>
-                            @endforeach
+                            <table class="table table-striped">
+                                <tbody>
+                                @foreach($word->domains as $domain)
+                                    <tr>
+                                        <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
+                                        <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
+                                        <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 @endforeach
 
                 <div class="text-center">
                     {!! $words->links() !!}
+                </div>
+            @else
+                <h2 class="text-center">Random Available Domain</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>{{ $domain->word->word }}</h3>
+
+                        @foreach($domain->word->definitions as $definition)
+                            <p><em class="text-muted">{{ $definition->type }}</em> {{ $definition->definition }}</p>
+                        @endforeach
+
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
+                                    <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
+                                    <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endif
         </div>
@@ -67,6 +96,10 @@
             <div class="col-md-8 col-md-offset-2">
                 <p class="text-center text-muted">
                     <small>Word definitions extracted from <a href="http://www.mso.anu.edu.au/~ralph/OPTED/" target="_blank">OPTED</a>, a public domain English word list dictionary, based on the public domain portion of "The Project Gutenberg Etext of Webster's Unabridged Dictionary" which is in turn based on the 1913 US Webster's Unabridged Dictionary.</small>
+                </p>
+
+                <p class="text-center text-muted">
+                    <small>Powered by the <a href="https://domainr.com/">Domainr API</a></small>
                 </p>
             </div>
         </div>
