@@ -29,7 +29,7 @@ class DomainSeeder extends Seeder
                 {
                     $domain = str_replace('-.', '.', $domain);
 
-                    \App\Domain::create([
+                    \App\Domain::firstOrCreate([
                         'word_id'    => $word->id,
                         'tld_id'    => $tld->id,
                         'domain'    => $domain
@@ -37,7 +37,7 @@ class DomainSeeder extends Seeder
 
                     if(strpos($domain, '-') !== false)
                     {
-                        \App\Domain::create([
+                        \App\Domain::firstOrCreate([
                             'word_id'    => $word->id,
                             'tld_id'    => $tld->id,
                             'domain'    => str_replace('-', '', $domain)

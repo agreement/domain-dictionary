@@ -18,11 +18,13 @@ class UpdateDomainSummaryColumns extends Migration
             $table->renameColumn('availability', 'status');
         });
 
-        foreach(config('domainr.statuses') as $key => $value)
+        $statuses = \Illuminate\Support\Facades\DB::table('domains')->groupBy('status')->pluck('status');
+
+        foreach($statuses as $status)
         {
             \Illuminate\Support\Facades\DB::table('domains')
-                ->where('status', '=', $key)
-                ->update(['available' => $value['available']]);
+                ->where('status', '=', $status)
+                ->update(['available' => \Privateer\Domainr\Status::available($status)]);
         }
     }
 

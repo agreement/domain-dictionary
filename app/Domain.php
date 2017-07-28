@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Privateer\Domainr\Status;
 
 class Domain extends Model
 {
@@ -18,5 +19,10 @@ class Domain extends Model
     public function tld()
     {
         return $this->belongsTo(Tld::class);
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return Status::description($this->status);
     }
 }

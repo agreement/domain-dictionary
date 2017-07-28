@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Privateer\Domainr\Domainr;
 
 class CheckDomainAvailability implements ShouldQueue
 {
@@ -37,15 +38,15 @@ class CheckDomainAvailability implements ShouldQueue
     {
         echo "Checking {$this->domain->domain}... ";
 
-        $response = \Domainr::status($this->domain->domain);
+        $status = (new Domainr(config('services.domainr.mashape_key')))->status($this->domain->domain);
 
-        $this->domain->available = config('domainr.statuses.' . $response[0]->summary . '.available');
-        $this->domain->status = $response[0]->summary;
+        $this->domain->available = $status->get('available');
+        $this->domain->status = $status->get('summary');
         $this->domain->last_checked_at = new Carbon;
 
         $this->domain->save();
 
-        echo "{$response[0]->summary}\n";
+        echo "{$status->get('summary')}\n";
 
         return;
     }

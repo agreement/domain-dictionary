@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'domainr'   => [
+        'mashape_key' => env('DOMAINR_MASHAPE_KEY'),
+    ],
+
 ];

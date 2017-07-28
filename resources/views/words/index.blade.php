@@ -52,7 +52,7 @@
                                     <tr>
                                         <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
                                         <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
-                                        <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                        <td>{{ $domain->description }}</td>
                                         <td>
                                             @if($domain->available)
                                             <a href="/register/{{ $domain->id }}" target="_blank" class="btn btn-default btn-sm">Register</a>
@@ -85,7 +85,7 @@
                                 <tr>
                                     <td><a href="http://{{ $domain->domain }}">{{ $domain->domain }}</a></td>
                                     <td><span class="label label-{!! ($domain->available) ? 'success">AVAILABLE' : 'danger">UNAVAILABLE' !!}</span></td>
-                                    <td>{{ config('domainr.statuses.' . $domain->status . '.description') }}</td>
+                                    <td>{{ $domain->description }}</td>
                                     <td><a href="/register/{{ $domain->id }}" target="_blank" class="btn btn-default btn-sm">Register</a></td>
                                 </tr>
                             </tbody>
@@ -106,7 +106,7 @@
                 </p>
 
                 <p class="text-center text-muted">
-                    <small>Powered by the <a href="https://domainr.com/">Domainr API</a></small>
+                    <small>Made by <a href="https://philstephens.io">Phil Stephens</a> | Powered by the <a href="https://domainr.com/">Domainr</a> API</small>
                 </p>
             </div>
         </div>
